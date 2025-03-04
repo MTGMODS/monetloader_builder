@@ -17,7 +17,7 @@
 
 6) Запустите в cmd/termital: python BUILD_RUN.py. 
 
-7) Лаунчер с MonetLoader + auto install lib готов!
+7) В вашей папке появиться MonetLoader.apk с авто-установкой lib.
 
 # P.S.
 Есть такой файл как files\assets\monetloader\compat\profile.json
