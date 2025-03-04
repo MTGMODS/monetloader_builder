@@ -1,0 +1,117 @@
+1) через cmd ввести
+C:\MonetLoader>apktool d app-arizona-release_web.apk
+и дождатьс€ окончани€
+
+2) переместить с заменой из C:\MonetLoader\mtg_launcher_Arz\files в C:\MonetLoader\app-arizona-release_web\
+
+3) удалить папку C:\MonetLoader\app-arizona-release_web\lib\arm64-v8a
+
+4) в файле C:\MonetLoader\app-arizona-release_web\AndroidManifest.xml
+найти
+android:label="@string/app_name"
+заменить на
+android:label="Arizona RPG"
+
+в цикле найти
+com.arizona21.game.web
+заменить на
+com.arizona.game
+
+найти
+<activity android:exported="false" android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity" android:stateNotNeeded="true" android:theme="@style/Theme.PlayCore.Transparent"/>
+заменить на
+<activity android:exported="false" android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity" android:stateNotNeeded="true" android:theme="@style/Theme.PlayCore.Transparent"/>
+<activity android:configChanges="fontScale|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode" android:hardwareAccelerated="true" android:name="com.unity3d.services.ads.adunit.AdUnitActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+<activity android:configChanges="fontScale|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode" android:hardwareAccelerated="true" android:name="com.unity3d.services.ads.adunit.AdUnitTransparentActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+<activity android:configChanges="fontScale|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode" android:hardwareAccelerated="false" android:name="com.unity3d.services.ads.adunit.AdUnitTransparentSoftwareActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+<activity android:configChanges="fontScale|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode" android:hardwareAccelerated="false" android:name="com.unity3d.services.ads.adunit.AdUnitSoftwareActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+5) в файле C:\MonetLoader\app-arizona-release_web\smali_classes3\com\arizona\launcher\UpdateService.smali 
+
+поиск фразы needUpdateMsg и вз€ть результат 3/4
+добавить снизу дл€ откл.обновлений апк лаунчера
+const/4 p1, 0x0
+
+6) в файле C:\MonetLoader\app-arizona-release_web\smali_classes5\ru\mrlargha\commonui\elements\hud\presentation\Hud.smali
+
+найти
+arizona-rp.com
+заменить на
+arizona rpg
+
+7) в файле C:\MonetLoader\app-arizona-release_web\smali_classes3\com\arizona\launcher\MainActivity.smali
+в .method protected onCreate вставить в самый конец перед return
+invoke-static {p0, p0}, Lcom/arizona/launcher/AssetExtractor;->unpackAssets(Landroid/app/Activity;Landroid/content/Context;)V 
+
+8) в файле C:\MonetLoader\app-arizona-release_web\smali_classes3\com\arizona\launcher\MainEntrench.smali
+найти 
+sget-object v0, Landroid/os/Build;->CPU_ABI:Ljava/lang/String;
+заменить на
+const-string v0, ""
+
+найти (регул€рное выражение так как разные версии типо " v15.7.9 release_web" и тд)
+const-string v0, " v(.+) release_web"
+запомнить эту версию и строчку заменить на 
+const-string v0, "[MTG MODS]\n\u2139\ufe0f ARZ v15.7.9 \u2139\ufe0f"
+ну вместо 15.7.9 та что запомнилась
+
+9) в файле C:\MonetLoader\app-arizona-release_web\smali_classes3\com\arizona\launcher\MainEntrench$IncomingHandler.smali
+
+после
+sget v1, Lcom/arizona/game/R$string;->update_btn:I
+найти
+sget v1, Lcom/arizona/game/R$string;->exit:I
+заменить на
+const-string v1, "\u041F\u0440\u043E\u043F\u0443\u0441\u0442\u0438\u0442\u044C"
+
+после
+sget v1, Lcom/arizona/game/R$string;->update_btn:I
+найти
+invoke-virtual {p1, v1, v2}, Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;
+заменить
+invoke-virtual {p1, v1, v2}, Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;
+
+10) в файле C:\MonetLoader\app-arizona-release_web\smali_classes3\com\arizona\launcher\MainEntrench$IncomingHandler$$ExternalSyntheticLambda7.smali 
+после onClick(
+
+найти
+.locals 1
+заменить
+.locals 3
+
+найти
+invoke-static {v0, p1, p2}, Lcom/arizona/launcher/MainEntrench$IncomingHandler;->$r8$lambda$1sj-oZAojgDiIJvV2THFcI_Wwww(Lcom/arizona/launcher/MainEntrench;Landroid/content/DialogInterface;I)V
+заменить на
+const-string v1, "com.arizona.launcher.MainActivity"
+invoke-static {v1}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+move-result-object v1
+new-instance v2, Landroid/content/Intent;
+invoke-direct {v2, v0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+invoke-virtual {v0, v2}, Lcom/arizona/launcher/MainEntrench;->startActivity(Landroid/content/Intent;)V
+invoke-virtual {v0}, Lcom/arizona/launcher/MainEntrench;->finish()V
+
+11) в папке C:\MonetLoader\app-arizona-release_web\smali_classes3
+цикл по всем файлам в разных подпапках .smali
+в цикле найти
+com.arizona21.game.web
+заменить на 
+com.arizona.game
+
+12) в файле C:\MonetLoader\app-arizona-release_web\smali_classes3\com\arizona\game\GTASAInternal.smali 
+найти
+const-string/jumbo v1, "samp"
+
+invoke-static {v1}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+заменить на
+const-string/jumbo v1, "samp"
+
+invoke-static {v1}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+const-string/jumbo v1, "monetloader"
+
+invoke-static {v1}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+13) в cmd ввести 
+C:\MonetLoader>apktool b app-arizona-release_web
+и дождатьс€ конца
