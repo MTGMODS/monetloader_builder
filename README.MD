@@ -1,5 +1,7 @@
 # Самосоздатель лаунчера с MonetLoader из ориг. лаунчера ARZ
 
+(требуется https://www.python.org/downloads/ и https://www.java.com/en/download/)
+
 # Как это использовать:
 
 1) Загрузите apksigner.jar, apktool.jar, BUILD_RUN.py, папку «files» из этого репозитория в удобную вам папку.
@@ -14,8 +16,6 @@
 5) Отредактируйте BUILD_RUN.py : вставьте свои данные в KEY_ALIAS и KEY_PASS для подписи apk.
 
 6) Запустите в cmd/termital: python BUILD_RUN.py. 
-
-(требуется https://www.python.org/downloads/ и https://www.java.com/en/download/)
 
 7) Готово!
 
