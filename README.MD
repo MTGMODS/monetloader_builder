@@ -11,9 +11,10 @@
 
 4) Если ваш apk-файл лаунчера имеет название не "app-arizona-release_web.apk", то дайте ему такое название
 
-5) Отредактируйте файл BUILD_RUN.py, вставьте свои данные в KEYSTORE_PATH, KEY_ALIAS, KEY_PASS для подписи apk.
+5) Отредактируйте BUILD_RUN.py : вставьте свои данные в KEY_ALIAS и KEY_PASS для подписи apk.
 
 6) Запустите в cmd/termital: python BUILD_RUN.py. 
+
 (требуется https://www.python.org/downloads/ и https://www.java.com/en/download/)
 
 7) Готово!
