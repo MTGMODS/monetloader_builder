@@ -27,14 +27,19 @@ print("[INFO] ✅ APK decompiled!")
 
 LIB_PATH = PATH + r"\\" + APK_NAME + r"\lib\arm64-v8a"
 
+print("[INFO] 🗑️ Delete " + LIB_PATH)
+
 if os.path.exists(LIB_PATH):
     shutil.rmtree(LIB_PATH)
     print("[INFO] ✅ Folder lib/arm64-v8a deleted!")
 
 ##################################################################################################################
 
-SRC_FILES = PATH + r"\monetloader_builder\files"
+SRC_FILES = PATH + r"\files"
 DEST_FILES = PATH + r"\\" + APK_NAME
+
+print(SRC_FILES)
+print(DEST_FILES)
 
 print("[INFO] ⌚ Adding MonetLoader files...")
 for root, dirs, files in os.walk(SRC_FILES):
@@ -260,7 +265,7 @@ SIGNED_APK = PATH + r"\MonetLoader.apk"
 
 KEYSTORE_PATH = PATH + r"\key.jks"
 KEY_ALIAS = "key0" ## replace for your sight key data
-KEY_PASS = "testkey" ## replace for your sight key data
+KEY_PASS = "Bogdan20MTG!" ## replace for your sight key data
 
 print("[INFO] ⌚ Signing APK...")
 
