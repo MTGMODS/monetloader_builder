@@ -38,9 +38,6 @@ if os.path.exists(LIB_PATH):
 SRC_FILES = PATH + r"\files"
 DEST_FILES = PATH + r"\\" + APK_NAME
 
-print(SRC_FILES)
-print(DEST_FILES)
-
 print("[INFO] ⌚ Adding MonetLoader files...")
 for root, dirs, files in os.walk(SRC_FILES):
     for file in files:
