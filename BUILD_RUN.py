@@ -1,15 +1,10 @@
-import subprocess
-import os
-import shutil
-import re
-import glob
+import subprocess, os, re, shutil, glob
 
 ##################################################################################################################
 
 PATH = os.path.dirname(__file__)
 
-APK_NAME = "app-arizona-release_web"
-## don't app name, examle apk_name.apk insert apk_name
+APK_NAME = "app-arizona-release_web" ## don't app name, name file .apk
 APK_PATH = PATH + r"\\" + APK_NAME + ".apk"
 
 APKTOOL_PATH = PATH + r"\apktool.jar"
@@ -82,18 +77,19 @@ with open(GTASA_INTERNAL_PATH, "w", encoding="utf-8") as file:
 
 SMALI_PATH = PATH + r"\\" + APK_NAME + r"\smali_classes4"
 
-print("[INFO] ⌚ Rename \"com.arizona21.game.web\" to \"com.arizona.game\" in launcher files...")
+print("[INFO] ⌚ Renaming package names to \"com.arizona.game\" in launcher files...")
 
 for filepath in glob.glob(f"{SMALI_PATH}/**/*.smali", recursive=True):
     with open(filepath, "r", encoding="utf-8") as file:
         smali_data = file.read()
 
     smali_data = smali_data.replace("com.arizona21.game.web", "com.arizona.game")
+    smali_data = smali_data.replace("com.arizona21.game", "com.arizona.game")
 
     with open(filepath, "w", encoding="utf-8") as file:
         file.write(smali_data)
 
-print("[INFO] ✅ Successful renaded!")
+print("[INFO] ✅ Successfully renamed!")
 
 ##################################################################################################################
 
@@ -102,14 +98,15 @@ MANIFEST_PATH = PATH + r"\\" + APK_NAME + r"\AndroidManifest.xml"
 with open(MANIFEST_PATH, "r", encoding="utf-8") as file:
     manifest_data = file.read()
 
-print("[INFO] ⌚ Rename \"com.arizona21.game.web\" to \"com.arizona.game\" in AndroidManifest.xml...")
+print("[INFO] ⌚ Renaming package names to \"com.arizona.game\" in AndroidManifest.xml...")
 manifest_data = manifest_data.replace("com.arizona21.game.web", "com.arizona.game")
-print("[INFO] ✅ Successful renaded!")
+manifest_data = manifest_data.replace("com.arizona21.game", "com.arizona.game")
+print("[INFO] ✅ Successful renamed!")
 
 print("[INFO] ⌚ Raname app name to \"Arizona RPG\"...")
 manifest_data = re.sub(r'android:label="@string/app_name"', 'android:label="Arizona RPG"', manifest_data)
 if 'android:label="Arizona RPG"' in manifest_data:
-    print("[INFO] ✅ Successful renaded!")
+    print("[INFO] ✅ Successful renamed!")
 else:
     print("[ERROR] ❌ String 'android:label=\"@string/app_name\"' not found!")
 
@@ -154,7 +151,7 @@ else:
 
 UPDATE_SERVICE_PATH = PATH + r"\\" + APK_NAME + r"\smali_classes4\com\arizona\launcher\UpdateService.smali"
 
-print("[INFO] ⌚ Off update client...")
+print("[INFO] ⌚ Disable update client...")
 with open(UPDATE_SERVICE_PATH, "r", encoding="utf-8") as file:
     smali_lines = file.readlines()
 
