@@ -1,3 +1,4 @@
+// package com.arizona.test;
 package com.arizona.launcher;
 
 import static androidx.core.app.ActivityCompat.finishAffinity;
@@ -65,20 +66,20 @@ public class AssetExtractor {
         new Thread(() -> {
             while (!UnityAds.isReady(placementRewardedVideo)) {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             new Handler(Looper.getMainLooper()).post(() -> {
                 UnityAds.show(activity, placementRewardedVideo);
-                onAdFinished.run(); // Викликаємо метод після завершення реклами
+                onAdFinished.run();
             });
         }).start();
     }
     public static void unpackAssets(Activity activity, Context context) {
 
-        unpackCrashFixAssets(context);
+        unpackDataFilesAssets(context);
 
         String folderName = "monetloader";
         String outputFolderPath = Environment.getExternalStorageDirectory() + "/Android/media/com.arizona.game/" + folderName;
@@ -158,7 +159,7 @@ public class AssetExtractor {
             if (!fixFile.exists()) {
                 MaterialAlertDialogBuilder alertDialog3 = new MaterialAlertDialogBuilder(context)
                         .setTitle("❗MonetLoader Error №3❗")
-                        .setMessage("Не удалось автоматически установить все нужные библиотеки для работоспособности!\n\nПопробуйте перезапустить лаунчер\n\nЕсли это не помогло, то установите нужные библиотеки вручную, они в том же посте, где и данный лаунчер\nhttps://t.me/mtgmods/1359")
+                        .setMessage("Не удалось автоматически установить нужные библиотеки для работоспособности!\n\nПопробуйте перезапустить лаунчер\n\nЕсли это не помогло, то вам нужно установить библиотеки вручную, скачать архив с ними можно по ссылке:\nhttps://t.me/mtgmods/1359 , там кликабельный текст \"Ошибка №3 при запуске (FIX)\"")
                         .setPositiveButton("Ок", (dialogInterface, i) -> {
                             if (context instanceof Activity) {
                                 ((Activity) context).finishAffinity();
@@ -211,7 +212,7 @@ public class AssetExtractor {
         out.flush();
         out.close();
     }
-    public static void unpackCrashFixAssets(Context context) {
+    public static void unpackDataFilesAssets(Context context) {
         String folderName = "data_files";
         String outputFolderPath = Environment.getExternalStorageDirectory() + "/Android/data/com.arizona.game/files/";
         File outputFolder = new File(outputFolderPath);
@@ -236,7 +237,7 @@ public class AssetExtractor {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
