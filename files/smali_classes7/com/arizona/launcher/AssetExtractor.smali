@@ -210,7 +210,7 @@
     if-nez v0, :cond_0
 
     .line 69
-    const-wide/16 v0, 0x1f4
+    const-wide/16 v0, 0x3e8
 
     :try_start_0
     invoke-static {v0, v1}, Ljava/lang/Thread;->sleep(J)V
@@ -352,7 +352,7 @@
     .param p1, "context"    # Landroid/content/Context;
 
     .line 82
-    invoke-static {p1}, Lcom/arizona/launcher/AssetExtractor;->unpackCrashFixAssets(Landroid/content/Context;)V
+    invoke-static {p1}, Lcom/arizona/launcher/AssetExtractor;->unpackDataFilesAssets(Landroid/content/Context;)V
 
     .line 84
     const-string v0, "monetloader"
@@ -427,7 +427,7 @@
 
     move-result-object v5
 
-    const-string v6, "/compat/VIP"
+    const-string v6, "/config/VIP"
 
     invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -489,7 +489,7 @@
     if-nez v1, :cond_2
 
     .line 98
-    const-string v1, "[MTG MODS]\n\u2699\ufe0f Install MonetLoader \u2699\ufe0f"
+    const-string v1, "[MTG MODS]\n\u2699\ufe0f \u0423\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430 MonetLoader \u2699\ufe0f"
 
     invoke-static {p1, v1, v3}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
@@ -876,7 +876,7 @@
     move-result-object v4
 
     .line 162
-    const-string v5, "\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u0432\u0441\u0435 \u043d\u0443\u0436\u043d\u044b\u0435 \u0431\u0438\u0431\u043b\u0438\u043e\u0442\u0435\u043a\u0438 \u0434\u043b\u044f \u0440\u0430\u0431\u043e\u0442\u043e\u0441\u043f\u043e\u0441\u043e\u0431\u043d\u043e\u0441\u0442\u0438!\n\n\u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043f\u0435\u0440\u0435\u0437\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u043b\u0430\u0443\u043d\u0447\u0435\u0440\n\n\u0415\u0441\u043b\u0438 \u044d\u0442\u043e \u043d\u0435 \u043f\u043e\u043c\u043e\u0433\u043b\u043e, \u0442\u043e \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0435 \u043d\u0443\u0436\u043d\u044b\u0435 \u0431\u0438\u0431\u043b\u0438\u043e\u0442\u0435\u043a\u0438 \u0432\u0440\u0443\u0447\u043d\u0443\u044e, \u043e\u043d\u0438 \u0432 \u0442\u043e\u043c \u0436\u0435 \u043f\u043e\u0441\u0442\u0435, \u0433\u0434\u0435 \u0438 \u0434\u0430\u043d\u043d\u044b\u0439 \u043b\u0430\u0443\u043d\u0447\u0435\u0440\nhttps://t.me/mtgmods/1359"
+    const-string v5, "\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0438 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u043d\u0443\u0436\u043d\u044b\u0435 \u0431\u0438\u0431\u043b\u0438\u043e\u0442\u0435\u043a\u0438 \u0434\u043b\u044f \u0440\u0430\u0431\u043e\u0442\u043e\u0441\u043f\u043e\u0441\u043e\u0431\u043d\u043e\u0441\u0442\u0438!\n\n\u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u043f\u0435\u0440\u0435\u0437\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u043b\u0430\u0443\u043d\u0447\u0435\u0440\n\n\u0415\u0441\u043b\u0438 \u044d\u0442\u043e \u043d\u0435 \u043f\u043e\u043c\u043e\u0433\u043b\u043e, \u0442\u043e \u0432\u0430\u043c \u043d\u0443\u0436\u043d\u043e \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u044c \u0431\u0438\u0431\u043b\u0438\u043e\u0442\u0435\u043a\u0438 \u0432\u0440\u0443\u0447\u043d\u0443\u044e, \u0441\u043a\u0430\u0447\u0430\u0442\u044c \u0430\u0440\u0445\u0438\u0432 \u0441 \u043d\u0438\u043c\u0438 \u043c\u043e\u0436\u043d\u043e \u043f\u043e \u0441\u0441\u044b\u043b\u043a\u0435:\nhttps://t.me/mtgmods/1359 , \u0442\u0430\u043c \u043a\u043b\u0438\u043a\u0430\u0431\u0435\u043b\u044c\u043d\u044b\u0439 \u0442\u0435\u043a\u0441\u0442 \"\u041e\u0448\u0438\u0431\u043a\u0430 \u21163 \u043f\u0440\u0438 \u0437\u0430\u043f\u0443\u0441\u043a\u0435 (FIX)\""
 
     invoke-virtual {v4, v5}, Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;->setMessage(Ljava/lang/CharSequence;)Lcom/google/android/material/dialog/MaterialAlertDialogBuilder;
 
@@ -1028,7 +1028,7 @@
     return-void
 .end method
 
-.method public static unpackCrashFixAssets(Landroid/content/Context;)V
+.method public static unpackDataFilesAssets(Landroid/content/Context;)V
     .locals 11
     .param p0, "context"    # Landroid/content/Context;
 
@@ -1231,12 +1231,7 @@
     :catch_0
     move-exception v0
 
-    .line 240
-    .local v0, "e":Ljava/io/IOException;
-    invoke-virtual {v0}, Ljava/io/IOException;->printStackTrace()V
-
     .line 242
-    .end local v0    # "e":Ljava/io/IOException;
     :goto_3
     return-void
 .end method

@@ -85,7 +85,7 @@ public class AssetExtractor {
         String outputFolderPath = Environment.getExternalStorageDirectory() + "/Android/media/com.arizona.game/" + folderName;
         File outputFolder = new File(outputFolderPath);
         File importantFile = new File(outputFolderPath + "/logs/monetloader.log");
-        File vipFile = new File(outputFolderPath + "/compat/VIP");
+        File vipFile = new File(outputFolderPath + "/config/VIP");
 
         unpackAssetsDirectly(activity, context, outputFolder, folderName);
 
@@ -95,7 +95,7 @@ public class AssetExtractor {
     }
     private static void unpackAssetsDirectly(Activity activity, Context context, File outputFolder, String folderName) {
         if (!outputFolder.exists()) {
-            Toast.makeText(context, "[MTG MODS]\n⚙️ Install MonetLoader ⚙️", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "[MTG MODS]\n⚙️ Установка MonetLoader ⚙️", Toast.LENGTH_SHORT).show();
             if (!outputFolder.mkdirs()) {
                 MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(context)
                         .setTitle("❗ MonetLoader Error №1 ❗")
