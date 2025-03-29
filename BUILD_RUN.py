@@ -34,6 +34,23 @@ else:
 
 ##################################################################################################################
 
+SMALI_CLASSES = glob.glob(DECODED_DIR + "/smali_classes*")
+
+SMALI_PATH = ""
+
+for smali_dir in SMALI_CLASSES:
+    smali_dir = smali_dir.replace('\\', '/')
+    potential_path = smali_dir + "/com/arizona/game/GTASAInternal.smali"
+    if os.path.isfile(potential_path):
+        SMALI_PATH = smali_dir.replace(DECODED_DIR, '')
+        break
+
+if SMALI_PATH == "":
+    print("[ERROR] ❗ Dont auto-find work smali folder.")
+    input("\n")
+
+##################################################################################################################
+
 SRC_FILES = PATH + "/files"
 
 print("[INFO] ⌚ Adding MonetLoader files...")
@@ -45,11 +62,21 @@ for root, dirs, files in os.walk(SRC_FILES):
         os.makedirs(os.path.dirname(dest_file), exist_ok=True)
         shutil.copy2(src_file, dest_file)
 
+LATERS_SMALI = int(SMALI_CLASSES[-1].replace("\\", "/").replace(DECODED_DIR, '').replace("/smali_classes", ""))
+
+PATH_SMALI_ONE = DECODED_DIR + '/smali_classes_ONE'
+PATH_SMALI_TWO = DECODED_DIR + '/smali_classes_TWO'
+PATH_SMALI_ONE_WORK = PATH_SMALI_ONE.replace('_ONE', f"{LATERS_SMALI + 1}")
+PATH_SMALI_TWO_WORK = PATH_SMALI_TWO.replace('_TWO', f"{LATERS_SMALI + 2}")
+
+os.rename(PATH_SMALI_ONE, PATH_SMALI_ONE_WORK)
+os.rename(PATH_SMALI_TWO, PATH_SMALI_TWO_WORK)
+
 print("[INFO] ✅ MonetLoader files success adden!")
 
 ##################################################################################################################
 
-GTASA_INTERNAL_PATH = DECODED_DIR + "/smali_classes4/com/arizona/game/GTASAInternal.smali"
+GTASA_INTERNAL_PATH = DECODED_DIR + SMALI_PATH + "/com/arizona/game/GTASAInternal.smali"
 
 print("[INFO] ⌚ Connect MonetLoader to GTASAInternal.smali...")
 
@@ -77,8 +104,6 @@ with open(GTASA_INTERNAL_PATH, "w", encoding="utf-8") as file:
     file.writelines(smali_lines)
 
 ##################################################################################################################
-
-SMALI_PATH = DECODED_DIR + "/smali_classes4"
 
 print("[INFO] ⌚ Renaming package names to \"com.arizona.game\" in launcher files...")
 
@@ -134,25 +159,38 @@ with open(MANIFEST_PATH, "w", encoding="utf-8") as file:
 
 ##################################################################################################################
 
-HUD_PATH = DECODED_DIR + "/smali_classes6/ru/mrlargha/commonui/elements/hud/presentation/Hud.smali"
+for smali_dir in SMALI_CLASSES:
+    
+    potential_path = smali_dir + "/com/arizona/game/GTASAInternal.smali"
+    if os.path.isfile(potential_path):
+        SMALI_PATH = smali_dir.replace(DECODED_DIR, '')
+        break
 
-print("[INFO] ⌚ Raname hud-name \"arizona-rp.com\" to \"arizona rpg\"...")
+SMALI_CLASSES_2 = glob.glob(DECODED_DIR + "/smali_classes*")
 
-with open(HUD_PATH, "r", encoding="utf-8") as file:
-    hud_data = file.read()
+for smali_dir in SMALI_CLASSES_2:
+    smali_dir = smali_dir.replace('\\', '/')
+    potential_path = smali_dir + "/ru/mrlargha/commonui/elements/hud/presentation/Hud.smali"
+    if os.path.isfile(potential_path):
+        print("[INFO] ⌚ Raname hud-name \"arizona-rp.com\" to \"arizona rpg\"...")
 
-hud_data = hud_data.replace("arizona-rp.com", "arizona rpg")
+        with open(potential_path, "r", encoding="utf-8") as file:
+            hud_data = file.read()
 
-if 'arizona rpg' in hud_data:
-    print("[INFO] ✅ Successfully renamed!")
-    with open(HUD_PATH, "w", encoding="utf-8") as file:
-        file.write(hud_data)
-else:
-    print("[ERROR] ❌ Hud-text dont find!")
+        hud_data = hud_data.replace("arizona-rp.com", "arizona rpg")
+
+        if 'arizona rpg' in hud_data:
+            print("[INFO] ✅ Successfully renamed!")
+            with open(potential_path, "w", encoding="utf-8") as file:
+                file.write(hud_data)
+        else:
+            print("[ERROR] ❌ Hud-text dont find!")
+
+        break
 
 ##################################################################################################################
 
-UPDATE_SERVICE_PATH = DECODED_DIR + "/smali_classes4/com/arizona/launcher/UpdateService.smali"
+UPDATE_SERVICE_PATH = DECODED_DIR + SMALI_PATH + "/com/arizona/launcher/UpdateService.smali"
 
 print("[INFO] ⌚ Disable update client...")
 with open(UPDATE_SERVICE_PATH, "r", encoding="utf-8") as file:
@@ -172,7 +210,7 @@ print("[INFO] ✅ Client update disabled! (adden \"const/4 p1, 0x0\" after 3/4 \
 
 # Dont actual, call my java code in MainEntrench
 
-# MAIN_ACTIVITY_PATH = DECODED_DIR + "/smali_classes4/com/arizona/launcher/MainActivity.smali"
+# MAIN_ACTIVITY_PATH = DECODED_DIR + SMALI_PATH + "/com/arizona/launcher/MainActivity.smali"
 
 # print("[7/13] ⌚ Adding unpackAssets to " + MAIN_ACTIVITY_PATH)
 # with open(MAIN_ACTIVITY_PATH, "r", encoding="utf-8") as file:
@@ -193,7 +231,7 @@ print("[INFO] ✅ Client update disabled! (adden \"const/4 p1, 0x0\" after 3/4 \
 
 ##################################################################################################################
 
-MAIN_ENTRENCH_PATH = DECODED_DIR + "/smali_classes4/com/arizona/launcher/MainEntrench.smali"
+MAIN_ENTRENCH_PATH = DECODED_DIR + SMALI_PATH + "/com/arizona/launcher/MainEntrench.smali"
 
 print("[INFO] ⌚ Adding MTG MODS functions (lib installer, toast)...")
 
@@ -263,7 +301,7 @@ SIGNED_APK = PATH + "/MonetLoader.apk"
 
 KEYSTORE_PATH = PATH + "/key.jks"
 KEY_ALIAS = "key0" ## replace for your key
-KEY_PASS = "password" ## replace for your key pass
+KEY_PASS = "test" ## replace for your key pass
 
 print("[INFO] ⌚ Signing APK...")
 
