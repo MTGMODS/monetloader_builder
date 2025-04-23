@@ -301,7 +301,7 @@ SIGNED_APK = PATH + "/MonetLoader.apk"
 
 KEYSTORE_PATH = PATH + "/key.jks"
 KEY_ALIAS = "key0" ## replace for your key
-KEY_PASS = "test" ## replace for your key pass
+KEY_PASS = "testkey" ## replace for your key pass
 
 print("[INFO] ⌚ Signing APK...")
 
