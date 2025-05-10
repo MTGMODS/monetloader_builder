@@ -289,6 +289,11 @@ with open(MAIN_ENTRENCH_PATH, "w", encoding="utf-8") as file:
 
 ##################################################################################################################
 
+# print("[INFO] ✅ App succes modified! Press any key for recompile&signed app")
+# input("")
+
+##################################################################################################################
+
 print("[INFO] ⌚ Recompiling APK...")
 subprocess.run(["java", "-jar", APKTOOL_PATH, "b", DECODED_DIR], check=True)
 print("[INFO] ✅ Recompiling succces!")
@@ -298,6 +303,7 @@ print("[INFO] ✅ Recompiling succces!")
 APKSIGNER_PATH = PATH + "/apksigner.jar"
 UNSIGNED_APK = DECODED_DIR + "/dist/" + APK_NAME + ".apk"
 SIGNED_APK = PATH + "/MonetLoader.apk"
+SIGNED_VER_APK = PATH + f"/MonetLoader {version_app}.apk"
 
 KEYSTORE_PATH = PATH + "/key.jks"
 KEY_ALIAS = "key0" ## replace for your key
@@ -321,13 +327,14 @@ if os.path.exists(KEYSTORE_PATH):
         ], check=True)
         
         print("[INFO] ✅ Signed successfully!")
-        print(f"[INFO] ℹ️ Your launcher {version_app}: {SIGNED_APK}")
+        shutil.move(SIGNED_APK, SIGNED_VER_APK)
+        print(f"[INFO] ℹ️ Your signed launcher: {SIGNED_VER_APK}")
     except subprocess.CalledProcessError as e:
         print(f"[ERROR] {e}")
 else:
     print("[ERROR] ❌ Don't signing APK! Not find file key.jks")
-    shutil.move(UNSIGNED_APK, SIGNED_APK)
-    print(f"[INFO] ℹ️ Your no_signed launcher {version_app}: {SIGNED_APK}")
+    shutil.move(UNSIGNED_APK, SIGNED_VER_APK)
+    print(f"[INFO] ℹ️ Your no_signed launcher {version_app}: {SIGNED_VER_APK}")
 
 ##################################################################################################################
 
